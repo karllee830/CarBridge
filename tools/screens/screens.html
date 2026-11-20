@@ -1,0 +1,262 @@
+<!--
+  SPDX-FileCopyrightText: 2026 CarBridge contributors
+  SPDX-License-Identifier: AGPL-3.0-only
+-->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>CarBridge head unit screens</title>
+<!--
+  The state screens CarBridge loops on the head unit while CarPlay shows nothing. render.sh in this directory takes
+  a screenshot of this page with headless Chrome for every frame:
+    screens.html?screen=NAME&orientation=landscape|portrait&frame=N
+  NAME is one of unpaired, pairing, connecting, unavailable, unavailable-mfi, unavailable-bluetooth,
+  unavailable-network.
+  N (0 to 29) is the frame of an animated screen; 30 frames make one seamless loop. The page fills the window, so the
+  window size is the picture size: 1280x720 for landscape, 720x1280 for portrait. A landscape screen keeps its
+  content within the middle SAFE_WIDTH pixels, since head units wider than 16:9 may crop the picture's sides.
+  Everything is drawn here with inline SVG and CSS; the page loads nothing else.
+-->
+<style>
+  :root {
+    --background: #1c1c1e;
+    --cell: #2c2c2e;
+    --label: #ffffff;
+    --secondary: rgba(235, 235, 245, 0.60);
+    --separator: rgba(84, 84, 88, 0.60);
+    --blue: #0a84ff;
+    --green: #30d158;
+    --orange: #ff9f0a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  body {
+    background: var(--background);
+    color: var(--label);
+    font-family: -apple-system, "SF Pro Text", "PingFang SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: -apple-system, "SF Pro Display", "PingFang SC", sans-serif; }
+
+  .page { height: 100%; margin: 0 auto; }
+  .body { height: 100%; display: flex; }
+  .landscape .page { padding: 0 80px; }
+  .landscape .body { align-items: center; gap: 80px; }
+  .portrait .page { padding: 0 65px; }
+  .portrait .body { flex-direction: column; justify-content: center; gap: 60px; }
+
+  /* text */
+  h1 { font-size: 46px; font-weight: 700; letter-spacing: 0.2px; line-height: 1.12; }
+  .lead { margin-top: 14px; font-size: 25px; line-height: 1.42; color: var(--secondary); }
+  .note { margin-top: 18px; font-size: 20px; line-height: 1.45; color: var(--secondary); }
+  .quote { color: var(--label); font-weight: 600; white-space: nowrap; }
+  .nb { white-space: nowrap; }
+  .text { flex: 1; }
+  .landscape .text { max-width: 600px; }
+  .portrait .text { flex: 0 0 auto; }
+
+  /* a centred screen: one symbol above the text */
+  .center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; }
+  .center .lead { max-width: 640px; }
+  .center .note { max-width: 600px; }
+  .center .group { width: 420px; text-align: left; }
+  .center .symbol { margin-bottom: 34px; }
+  .portrait .center { zoom: 1.15; }
+
+  /* inset grouped list */
+  .group { margin-top: 30px; background: var(--cell); border-radius: 26px; overflow: hidden; }
+  .group + .note { margin-top: 14px; padding: 0 22px; }
+  .row { position: relative; display: flex; align-items: center; gap: 18px; min-height: 68px; padding: 0 22px;
+    font-size: 23px; line-height: 1.38; }
+  .row + .row::before { content: ""; position: absolute; top: 0; left: 80px; right: 0; height: 1px;
+    background: var(--separator); transform: scaleY(0.5); transform-origin: top; }
+  .row .grow { flex: 1; }
+  .row .value { color: var(--secondary); }
+  .row .value.warn { color: var(--orange); }
+  /* a numbered step: its text may take two lines */
+  .steps .row { padding-top: 14px; padding-bottom: 14px; }
+  .steps .row + .row::before { left: 74px; }
+  .number { flex: 0 0 auto; align-self: flex-start; width: 34px; height: 34px; margin-top: -1px; border-radius: 50%;
+    background: var(--blue); display: grid; place-items: center; font-size: 20px; font-weight: 700; line-height: 1; }
+  /* a small icon tile at the start of a row */
+  .tile { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; }
+  .tile.gray { background: linear-gradient(180deg, #8e8e93 0%, #747479 100%); }
+
+  /* a phone, drawn at 410x860 and scaled into its box */
+  .phone-box { flex: 0 0 auto; position: relative; }
+  /* a phone cut off at its box's bottom fades out there */
+  .phone-box.cut { overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
+  .landscape .phone-box { align-self: flex-start; margin-top: 64px; }
+  .portrait .phone-box { align-self: center; }
+  .phone { position: absolute; left: 0; top: 0; width: 410px; height: 860px; transform-origin: 0 0;
+    border-radius: 66px; padding: 13px; background: #111113;
+    box-shadow: inset 0 0 0 2px #4a4a4f, 0 30px 60px rgba(0, 0, 0, 0.35); }
+  .screen { position: relative; height: 100%; border-radius: 54px; background: #000; overflow: hidden;
+    padding: 76px 18px 0; }
+  .island { position: absolute; top: 16px; left: 50%; width: 112px; height: 33px; margin-left: -56px;
+    border-radius: 17px; background: #111; box-shadow: inset 0 0 0 1px #1d1d1f; }
+  /* one large symbol in the middle of the phone's visible screen */
+  .phone-icon { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center;
+    gap: 44px; }
+  .big-tile { width: 150px; height: 150px; border-radius: 40px; display: grid; place-items: center; }
+  .big-tile.blue { background: linear-gradient(180deg, #2f93ff 0%, #0a7aff 100%); }
+  .big-tile.gray { background: linear-gradient(180deg, #636366 0%, #48484a 100%); }
+
+  /* a settings page on the phone */
+  .screen .back { color: var(--blue); font-size: 19px; display: flex; align-items: center; gap: 4px; }
+  .screen h2 { margin: 10px 4px 16px; font-size: 36px; font-weight: 700; }
+  .screen .group { margin-top: 0; border-radius: 20px; background: var(--background); }
+  .screen .row { min-height: 54px; font-size: 19px; padding: 0 18px; gap: 12px; }
+  .screen .row + .row::before { left: 18px; }
+  .screen .header { margin: 26px 18px 8px; font-size: 15px; color: var(--secondary);
+    display: flex; align-items: center; gap: 8px; }
+  .screen .footnote { margin: 10px 18px 0; font-size: 15px; line-height: 1.4; color: var(--secondary); }
+  .toggle { width: 52px; height: 32px; border-radius: 16px; background: var(--green); position: relative; }
+  .toggle::after { content: ""; position: absolute; right: 2px; top: 2px; width: 28px; height: 28px;
+    border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); }
+  .pressed { background: #3a3a3c; }
+
+  /* activity indicator */
+  .spinner { position: relative; flex: 0 0 auto; }
+  .spinner i { position: absolute; top: 0; background: #9c9ca1; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="body" id="body"></div>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const screen = params.get("screen") || "unpaired";
+  const frame = Number(params.get("frame") || 0);
+  const portrait = params.get("orientation") === "portrait";
+  // the landscape width that every head unit shows, in page pixels
+  const SAFE_WIDTH = 1152;
+
+  document.body.className = portrait ? "portrait" : "landscape";
+  if (!portrait) {
+    document.querySelector(".page").style.maxWidth = `${SAFE_WIDTH}px`;
+  }
+
+  const GLYPH = {
+    // two chain links, crossed at 45 degrees
+    link: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"><g transform="rotate(-45 12 12)"><rect x="1.8" y="8.4" width="11.4" height="7.2" rx="3.6"/><rect x="10.8" y="8.4" width="11.4" height="7.2" rx="3.6"/></g></svg>`,
+    // a chip with three pins on each side
+    chip: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2.2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1" fill="#fff" stroke="none"/><path d="M9 3v3M12 3v3M15 3v3M9 18v3M12 18v3M15 18v3M3 9h3M3 12h3M3 15h3M18 9h3M18 12h3M18 15h3"/></svg>`,
+    // a dot sending waves to both sides
+    radio: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="2.2" fill="#fff" stroke="none"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 8.2a5.4 5.4 0 0 1 0 7.6M5.3 5.3a9.5 9.5 0 0 0 0 13.4M18.7 5.3a9.5 9.5 0 0 1 0 13.4"/></svg>`,
+    // one node joined to two below it
+    network: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-4h12v4"/></svg>`,
+    // an app window: a title bar above an empty pane
+    window: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.6"/><path d="M3 9h18"/><circle cx="6.2" cy="6.8" r="0.9" fill="#fff" stroke="none"/><circle cx="9" cy="6.8" r="0.9" fill="#fff" stroke="none"/></svg>`,
+    chevronBack: () => `<svg width="11" height="19" viewBox="0 0 10 17" fill="none" stroke="#0a84ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L2 8.5 8 15"/></svg>`,
+  };
+
+  // a rounded orange triangle with an exclamation mark in the background colour on it
+  const warning = `
+    <svg class="symbol" width="96" height="86" viewBox="0 0 96 86">
+      <path d="M48 9L87 77H9Z" fill="#ff9f0a" stroke="#ff9f0a" stroke-width="14" stroke-linejoin="round"/>
+      <rect x="44" y="28" width="8" height="30" rx="4" fill="#1c1c1e"/>
+      <circle cx="48" cy="67.5" r="5" fill="#1c1c1e"/>
+    </svg>`;
+
+  function spinner(side) {
+    // 8 round-ended spokes; the brightest moves one place every 3.75 frames, so 30 frames make one turn
+    const w = side * 0.13, h = side * 0.28;
+    const lead = Math.floor(frame / 3.75) % 8;
+    let spokes = "";
+    for (let i = 0; i < 8; i++) {
+      const age = (lead - i + 8) % 8;
+      const opacity = Math.max(0.28, 1 - age * 0.12);
+      spokes += `<i style="left:${(side - w) / 2}px;width:${w}px;height:${h}px;border-radius:${w / 2}px;` +
+        `transform-origin:${w / 2}px ${side / 2}px;transform:rotate(${i * 45}deg);opacity:${opacity.toFixed(3)}"></i>`;
+    }
+    return `<div class="spinner" style="width:${side}px;height:${side}px">${spokes}</div>`;
+  }
+
+  // The phone. In landscape it is at full size, its lower part cut off by the picture's bottom edge. In portrait it
+  // is drawn at `portraitScale`, whole, or with only its top `portraitHeight` pixels shown, fading out below.
+  function phone(content, portraitScale = 0.62, portraitHeight = 0) {
+    const scale = portrait ? portraitScale : 1;
+    const height = portrait && portraitHeight ? portraitHeight : 860 * scale;
+    const cut = portrait && portraitHeight ? " cut" : "";
+    return `<div class="phone-box${cut}" style="width:${410 * scale}px;height:${height}px">` +
+      `<div class="phone" style="transform:scale(${scale})"><div class="screen"><div class="island"></div>` +
+      `${content}</div></div></div>`;
+  }
+  // a symbol in the middle of the phone's screen, `top` pixels down from the screen's top
+  const phoneIcon = (inner, top = 206) => phone(`<div class="phone-icon" style="top:${top}px">${inner}</div>`);
+
+  // the iPhone's Bluetooth settings, CarBridge listed under the other devices
+  const bluetoothPage = (searching, pressed) => phone(`
+    <div class="back">${GLYPH.chevronBack()}设置</div>
+    <h2 class="display">蓝牙</h2>
+    <div class="group"><div class="row"><div class="grow">蓝牙</div><div class="toggle"></div></div></div>
+    <div class="header">其他设备 ${searching ? spinner(17) : ""}</div>
+    <div class="group">
+      <div class="row${pressed ? " pressed" : ""}"><div class="grow">CarBridge</div></div>
+    </div>
+    <div class="footnote">轻点 CarBridge 开始配对。</div>`, 0.84, 470);
+
+  const text = (heading, body) => `<div class="text"><h1 class="display">${heading}</h1>${body}</div>`;
+  const q = s => `<span class="quote">${s}</span>`;
+  const nb = s => `<span class="nb">${s}</span>`;
+  const step = (n, body) => `<div class="row"><div class="number">${n}</div><div class="grow">${body}</div></div>`;
+  const stateRow = (glyph, label, value) =>
+    `<div class="row"><div class="tile gray">${GLYPH[glyph](28)}</div><div class="grow">${label}</div>` +
+    `<span class="value warn">${value}</span></div>`;
+  const unavailable = (glyph, label, value, reason, note) => `
+    <div class="center">
+      ${warning}
+      <h1 class="display">CarPlay 暂时无法使用</h1>
+      <p class="lead">${reason}</p>
+      <div class="group">${stateRow(glyph, label, value)}</div>
+      <p class="note">${note}</p>
+    </div>`;
+
+  const SCREENS = {
+    // no iPhone is paired yet
+    unpaired: () => `
+      ${phoneIcon(`<div class="big-tile gray">${GLYPH.link(104)}</div>`)}
+      ${text("连接 iPhone", `
+        <p class="lead">第一次使用前，需要把 iPhone ${nb("与 CarBridge 配对。")}</p>
+        <div class="group steps">
+          ${step(1, `在手机或电脑上打开 ${q("CarBridge 管理页面")}`)}
+          ${step(2, `轻点 ${q("配对 iPhone")}`)}
+          ${step(3, `在 iPhone 的 ${q("设置 › 蓝牙")} 中，${nb(`轻点其他设备下的 ${q("CarBridge")}`)}`)}
+        </div>
+        <p class="note">只需配对一次。之后 iPhone 解锁后${nb("会自动连接 CarPlay。")}</p>`)}`,
+    // the pairing window is open
+    pairing: () => `
+      ${bluetoothPage(true, true)}
+      ${text("在 iPhone 上配对", `
+        <p class="lead">打开 iPhone 的 ${q("设置 › 蓝牙")}，在 ${q("其他设备")} 中轻点 CarBridge。</p>
+        <p class="note">iPhone 弹出配对请求时，轻点 ${q("配对")}。${nb("配对完成后，CarPlay 会自动启动。")}</p>`)}`,
+    // an iPhone was found and CarPlay is starting
+    connecting: () => `
+      ${phoneIcon(`<div class="big-tile blue">${GLYPH.link(104)}</div>${spinner(40)}`)}
+      ${text("正在连接 CarPlay", `
+        <p class="lead">已找到 iPhone，CarPlay 正在启动。</p>
+        <p class="note">请保持 ${q("iPhone 解锁")}。首次连接可能需要十几秒。</p>`)}`,
+    // CarPlay cannot start for any other reason
+    unavailable: () => unavailable("window", "CarPlay 服务", "未启动",
+      "CarPlay 服务未能启动。",
+      `CarBridge 会自动重试。如果一直如此，<br>请在 ${q("CarBridge 管理页面")} 查看日志，或 ${q("重启 CarPlay")}。`),
+    "unavailable-mfi": () => unavailable("chip", "MFi 证书", "不可用",
+      "缺少 MFi 证书，或证书无法读取。",
+      `请在手机或电脑上打开 ${q("CarBridge 管理页面")}，<br>在 ${q("MFi 证书")} 中上传证书。`),
+    "unavailable-bluetooth": () => unavailable("radio", "蓝牙", "未就绪",
+      "蓝牙尚未就绪。",
+      `CarBridge 会自动重试。如果一直如此，<br>请在 ${q("CarBridge 管理页面")} 查看状态，或 ${q("重启 CarPlay")}。`),
+    "unavailable-network": () => unavailable("network", "局域网地址", "无",
+      "路由器的局域网没有网络地址。",
+      `CarBridge 会自动重试。如果一直如此，<br>请检查路由器的局域网设置。`),
+  };
+
+  document.getElementById("body").innerHTML = (SCREENS[screen] || SCREENS.unpaired)();
+</script>
+</body>
+</html>

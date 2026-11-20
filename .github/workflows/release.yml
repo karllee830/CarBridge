@@ -1,0 +1,144 @@
+# Pushing a tag vX.Y.Z builds the OpenWrt packages with the official SDK and publishes them in a GitHub Release.
+# The tag must match the version in Cargo.toml, which the packages and the program take theirs from.
+#
+# The SDK builds the Rust toolchain from source, which takes hours; each SDK's toolchain is cached. A run can only use
+# caches made on its own ref or on the default branch, and GitHub drops a cache that is not used for a week, so a
+# weekly run on main, which also checks that the packages still build, keeps them there for the tags. Run it by hand
+# from the Actions tab to build the packages without a release.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    name: Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+      - id: v
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml)
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then
+            tag="${GITHUB_REF_NAME#v}"
+            [[ "$tag" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::The tag must be vX.Y.Z"; exit 1; }
+            [[ "$tag" == "$version" ]] || { echo "::error::The tag is $tag but Cargo.toml says $version"; exit 1; }
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+  packages:
+    name: Packages (${{ matrix.sdk }})
+    needs: version
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        # SDK containers ghcr.io/openwrt/sdk:<package architecture>-<OpenWrt release>
+        sdk:
+          - aarch64_generic-25.12.6 # armsr, rockchip
+          - aarch64_cortex-a53-25.12.6 # mediatek filogic and mt7622, qualcommax, Raspberry Pi 3
+          - aarch64_cortex-a72-25.12.6 # Raspberry Pi 4, mvebu cortexa72
+          - aarch64_cortex-a76-25.12.6 # Raspberry Pi 5
+          - x86_64-25.12.6 # x86/64 PCs and virtual machines
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/cache
+          # Bump the number to build the toolchain again
+          key: sdk-rust-${{ matrix.sdk }}-1
+      - name: Build
+        env:
+          sdk: ${{ matrix.sdk }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/cache" "$RUNNER_TEMP/out"
+          # The SDK container builds as the user with ID 1000
+          sudo chown -R 1000:1000 . "$RUNNER_TEMP/cache" "$RUNNER_TEMP/out"
+          docker run --rm -v "$PWD:/feed" -v "$RUNNER_TEMP/cache:/cache" -v "$RUNNER_TEMP/out:/out" \
+            --entrypoint bash "ghcr.io/openwrt/sdk:$sdk" /feed/.github/scripts/build-packages.sh
+      - name: Give the files back to the runner
+        if: always()
+        run: sudo chown -R "$(id -u):$(id -g)" . "$RUNNER_TEMP/cache" "$RUNNER_TEMP/out"
+      - name: Collect
+        env:
+          sdk: ${{ matrix.sdk }}
+        run: |
+          dir="$RUNNER_TEMP/out/bin/packages/${sdk%-*}/carbridge"
+          mkdir -p packages
+          for f in "$dir"/carbridge-[0-9]*.apk; do
+            cp "$f" "packages/$(basename "${f%.apk}")-$sdk.apk"
+          done
+          cp "$dir"/luci-app-carbridge-*.apk "$dir"/luci-i18n-carbridge-*.apk packages/
+          ls -la packages
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages-${{ matrix.sdk }}
+          path: packages/*.apk
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: logs-${{ matrix.sdk }}
+          path: ${{ runner.temp }}/out/logs/
+
+  release:
+    name: GitHub Release
+    needs: [version, packages]
+    # Releases what built: an architecture whose build failed is left out, and the release notes say so
+    if: ${{ !cancelled() && github.ref_type == 'tag' && needs.version.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: packages-*
+          path: artifacts
+          merge-multiple: true
+      - name: Checksums
+        working-directory: artifacts
+        run: |
+          ls -la
+          compgen -G 'carbridge-[0-9]*.apk' > /dev/null || { echo "::error::No architecture built"; exit 1; }
+          sha256sum *.apk > SHA256SUMS
+      - name: Release notes
+        env:
+          version: ${{ needs.version.outputs.version }}
+          packages: ${{ needs.packages.result }}
+        run: |
+          {
+            printf '### Install\n\n'
+            printf 'Copy the two packages for your router to it and install them:\n\n'
+            printf '```bash\napk add --allow-untrusted ./carbridge-%s-r1-<architecture>-<release>.apk ./luci-app-carbridge-%s-r1.apk\n```\n\n' "$version" "$version"
+            printf 'For the web page in Chinese, add `luci-i18n-carbridge-zh-cn-….apk` too.\n\n'
+            printf -- '- `carbridge-…-<architecture>-<release>.apk`: the program, for one package architecture and OpenWrt release\n'
+            printf -- '- `luci-app-carbridge-….apk`: the web page, for every architecture\n'
+            printf -- '- `luci-i18n-carbridge-zh-cn-….apk`: its Chinese translation, for every architecture\n'
+            printf -- '- `SHA256SUMS`: checksums\n\n'
+            printf 'Built for these package architectures and OpenWrt releases:\n\n'
+            for f in artifacts/carbridge-[0-9]*.apk; do
+              f="${f%.apk}"
+              printf -- '- `%s`\n' "${f#artifacts/carbridge-"$version"-r1-}"
+            done
+            printf '\n'
+            if [[ "$packages" != success ]]; then
+              printf 'Some architectures did not build and are missing from this release; see the [workflow run](%s/%s/actions/runs/%s).\n\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
+            fi
+            printf 'See the [README](https://github.com/%s#install) for what CarBridge needs and how to set it up.\n' "$GITHUB_REPOSITORY"
+          } > notes.md
+          cat notes.md
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "$GITHUB_REF_NAME" artifacts/* --title "CarBridge ${GITHUB_REF_NAME#v}" --notes-file notes.md --generate-notes

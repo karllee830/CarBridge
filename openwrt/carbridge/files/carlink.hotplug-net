@@ -1,0 +1,8 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: 2026 CarBridge contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# A Wi-Fi network interface appears: when it is the adapter CarBridge joins the head unit with, it is named carlink0.
+
+[ "$ACTION" = add ] && [ -e "/sys/class/net/$INTERFACE/phy80211" ] || exit 0
+exec /usr/libexec/carbridge-carlink setup

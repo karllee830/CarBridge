@@ -1,0 +1,13 @@
+[package]
+name = "carbridge-carlink-wifi"
+description = "Joining the Wi-Fi network a Carlink head unit opens for the phone."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+carbridge-carlink-ble.workspace = true
+pbkdf2.workspace = true
+sha1.workspace = true

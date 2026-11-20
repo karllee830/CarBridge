@@ -1,0 +1,668 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "%d fps"
+msgstr ""
+
+msgid "%s (about %s-inch screen)"
+msgstr ""
+
+msgid "%s (not connected)"
+msgstr ""
+
+msgid "%s for the picture %s"
+msgstr ""
+
+msgid "%s is connected now: the new head unit connects once it is not."
+msgstr ""
+
+msgid "%s to %s"
+msgstr ""
+
+msgid "%s will be forgotten in a moment."
+msgstr ""
+
+msgid "%s will be unpaired in a moment."
+msgstr ""
+
+msgid "%s, %d dpi"
+msgstr ""
+
+msgid "%s: %s"
+msgstr ""
+
+msgid "10 MB at most: the oldest lines give way to new ones."
+msgstr ""
+
+msgid "30 fps"
+msgstr ""
+
+msgid "60 fps"
+msgstr ""
+
+msgid "A change applies from the next prompt."
+msgstr ""
+
+msgid "A connected iPhone keeps its codec until it connects again."
+msgstr ""
+
+msgid "A density in dots per inch, from 72 to 640"
+msgstr ""
+
+msgid "A few seconds later the iPhone asks to connect CarPlay: tap Connect."
+msgstr ""
+
+msgid "A file of the certificate cannot be read."
+msgstr ""
+
+msgid "A file of the certificate is missing."
+msgstr ""
+
+msgid "A usable certificate is installed: confirm replacing it."
+msgstr ""
+
+msgid "AI assistant"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "Advanced settings"
+msgstr ""
+
+msgid "Advanced settings for %s"
+msgstr ""
+
+msgid "Also used with Automatic until a head unit is known."
+msgstr ""
+
+msgid "Also writes the log, with statistics of the microphone, of sound dropped and of the link to the head unit, to %s on the router's storage."
+msgstr ""
+
+msgid "Always"
+msgstr ""
+
+msgid "Always, even when the head unit does not offer it"
+msgstr ""
+
+msgid "Always: H.265 even when undeclared, for head units whose decoder takes it."
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Automatic (%d fps)"
+msgstr ""
+
+msgid "Automatic (%s)"
+msgstr ""
+
+msgid "Automatic: the area the head unit shows CarPlay in, as it reports it, kept for the next start."
+msgstr ""
+
+msgid "Automatic: the frame rate the head unit asks for."
+msgstr ""
+
+msgid "Bluetooth %s"
+msgstr ""
+
+msgid "Bluetooth adapter"
+msgstr ""
+
+msgid "Bluetooth is not ready."
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Cannot be read"
+msgstr ""
+
+msgid "CarBridge"
+msgstr ""
+
+msgid "CarBridge checks that both files can be read and that the key belongs to the certificate before it installs them. The private key is never shown."
+msgstr ""
+
+msgid "CarBridge could not be restarted."
+msgstr ""
+
+msgid "CarBridge is not running."
+msgstr ""
+
+msgid "CarBridge is restarting."
+msgstr ""
+
+msgid "CarBridge leaves it out of the router's own Wi-Fi and names its interface carlink0."
+msgstr ""
+
+msgid "CarBridge tries again every few seconds."
+msgstr ""
+
+msgid "CarPlay"
+msgstr ""
+
+msgid "CarPlay cannot run now, so iPhones cannot pair: %s"
+msgstr ""
+
+msgid "CarPlay picture size"
+msgstr ""
+
+msgid "CarPlay starts"
+msgstr ""
+
+msgid "CarPlay status"
+msgstr ""
+
+msgid "CarPlay's controls grow with the density: the higher, the larger."
+msgstr ""
+
+msgid "Casting to the head unit"
+msgstr ""
+
+msgid "Certificate"
+msgstr ""
+
+msgid "Checking the certificate…"
+msgstr ""
+
+msgid "Choose Pair a head unit below and enter it."
+msgstr ""
+
+msgid "Choose Start pairing an iPhone below."
+msgstr ""
+
+msgid "Choose both the private key and the certificate."
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Connect"
+msgstr ""
+
+msgid "Connected"
+msgstr ""
+
+msgid "Connected to the head unit"
+msgstr ""
+
+msgid "Connecting to the head unit"
+msgstr ""
+
+msgid "Connecting to the head unit…"
+msgstr ""
+
+msgid "Connection failed, trying again"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "DPI"
+msgstr ""
+
+msgid "DPI %d"
+msgstr ""
+
+msgid "Defaults for head units"
+msgstr ""
+
+msgid "Detailed log"
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "Download detailed log"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Enter the PIN below and choose Connect."
+msgstr ""
+
+msgid "Enter the PIN the head unit shows"
+msgstr ""
+
+msgid "Even width x height in pixels, from 320x240 to 3840x2160, for example 1280x720"
+msgstr ""
+
+msgid "Fixed"
+msgstr ""
+
+msgid "Fixed picture size"
+msgstr ""
+
+msgid "For head units without settings of their own. A head unit's own settings are under Advanced in the list of head units."
+msgstr ""
+
+msgid "Forget"
+msgstr ""
+
+msgid "Forget %s? CarBridge no longer connects to it until it is paired again with the PIN it shows."
+msgstr ""
+
+msgid "Forget head unit"
+msgstr ""
+
+msgid "Frame rate"
+msgstr ""
+
+msgid "Full screen"
+msgstr ""
+
+msgid "Full screen resolution"
+msgstr ""
+
+msgid "H.265 to the head unit"
+msgstr ""
+
+msgid "Head unit Wi-Fi adapter"
+msgstr ""
+
+msgid "Head unit Wi-Fi interface"
+msgstr ""
+
+msgid "Head units"
+msgstr ""
+
+msgid "Hide advanced settings"
+msgstr ""
+
+msgid "Hide log"
+msgstr ""
+
+msgid "How the cast shows when the head unit connects."
+msgstr ""
+
+msgid "ID %s"
+msgstr ""
+
+msgid "In the window"
+msgstr ""
+
+msgid "Install"
+msgstr ""
+
+msgid "Installed. CarPlay starts in a moment."
+msgstr ""
+
+msgid "Installed. CarPlay uses it after Restart CarPlay."
+msgstr ""
+
+msgid "Installing failed: %s"
+msgstr ""
+
+msgid "Issuer"
+msgstr ""
+
+msgid "It is known by its MAC address, on whichever USB port."
+msgstr ""
+
+msgid "Joining the head unit's Wi-Fi failed. Trying again…"
+msgstr ""
+
+msgid "Keep the head unit on its PIN screen until it is paired."
+msgstr ""
+
+msgid "Landscape window"
+msgstr ""
+
+msgid "Last connected"
+msgstr ""
+
+msgid "Loading…"
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
+msgid "Looking for the head unit"
+msgstr ""
+
+msgid "Looking for the head unit…"
+msgstr ""
+
+msgid "MFi certificate"
+msgstr ""
+
+msgid "Measured views"
+msgstr ""
+
+msgid "Media"
+msgstr ""
+
+msgid "Missing"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Navigation sound channel"
+msgstr ""
+
+msgid "Navigation speech"
+msgstr ""
+
+msgid "No head unit found yet. Keep the head unit on its PIN screen, close to CarBridge."
+msgstr ""
+
+msgid "No head unit paired yet."
+msgstr ""
+
+msgid "No iPhone paired yet."
+msgstr ""
+
+msgid "No log yet."
+msgstr ""
+
+msgid "No usable MFi certificate."
+msgstr ""
+
+msgid "Not chosen"
+msgstr ""
+
+msgid "Not measured yet"
+msgstr ""
+
+msgid "Not running"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "Off: always H.264."
+msgstr ""
+
+msgid "Off: the head unit shows CarBridge's waiting screen only."
+msgstr ""
+
+msgid "On the head unit, open Carlink: it shows a six-digit PIN."
+msgstr ""
+
+msgid "On the iPhone, open Settings > Bluetooth, tap %s under Other Devices and pair."
+msgstr ""
+
+msgid "Once its touches have measured the full screen view, CarPlay is drawn at that size from the next connection, pixel for pixel."
+msgstr ""
+
+msgid "Other sizes are drawn as they are."
+msgstr ""
+
+msgid "Pair a head unit"
+msgstr ""
+
+msgid "Pair an iPhone"
+msgstr ""
+
+msgid "Paired %s"
+msgstr ""
+
+msgid "Paired iPhones"
+msgstr ""
+
+msgid "Paired with %s."
+msgstr ""
+
+msgid "Paired with %s. It connects in a moment."
+msgstr ""
+
+msgid "Pairing after start"
+msgstr ""
+
+msgid "Pairing could not be opened: %s"
+msgstr ""
+
+msgid "Phone call"
+msgstr ""
+
+msgid "Portrait window"
+msgstr ""
+
+msgid "Present"
+msgstr ""
+
+msgid "Private key"
+msgstr ""
+
+msgid "RealDPI"
+msgstr ""
+
+msgid "RealDPI %d"
+msgstr ""
+
+msgid "RealDPI (not reported: DPI %d is used)"
+msgstr ""
+
+msgid "Recalibrate"
+msgstr ""
+
+msgid "Refresh"
+msgstr ""
+
+msgid "Replace"
+msgstr ""
+
+msgid "Replace the certificate"
+msgstr ""
+
+msgid "Replace the certificate CarPlay uses now"
+msgstr ""
+
+msgid "Restart"
+msgstr ""
+
+msgid "Restart CarBridge now? CarPlay and the picture on the head unit drop for a few seconds, then connect again."
+msgstr ""
+
+msgid "Restart CarPlay"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Seconds iPhones can pair after CarBridge starts; 0 for only with the button."
+msgstr ""
+
+msgid "Serial number"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Show advanced settings"
+msgstr ""
+
+msgid "Show log"
+msgstr ""
+
+msgid "Showing CarPlay"
+msgstr ""
+
+msgid "Start pairing an iPhone"
+msgstr ""
+
+msgid "Starting"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Stopped"
+msgstr ""
+
+msgid "Subject"
+msgstr ""
+
+msgid "The Bluetooth connection to the head unit failed. Trying again…"
+msgstr ""
+
+msgid "The CarPlay receiver did not start."
+msgstr ""
+
+msgid "The PIN is the six digits the head unit shows."
+msgstr ""
+
+msgid "The PIN is wrong or has expired: the head unit shows a new one from time to time. Enter the one it shows now."
+msgstr ""
+
+msgid "The Wi-Fi adapter that joins the head unit's network: a second one, besides the iPhone's access point."
+msgstr ""
+
+msgid "The access point the iPhone joins for CarPlay."
+msgstr ""
+
+msgid "The certificate cannot be used: it must be PKCS #7 holding one P-256 certificate."
+msgstr ""
+
+msgid "The connection to the head unit failed. Trying again…"
+msgstr ""
+
+msgid "The detailed log cannot be downloaded: %s"
+msgstr ""
+
+msgid "The files are too large for an MFi certificate."
+msgstr ""
+
+msgid "The files cannot be sent: %s"
+msgstr ""
+
+msgid "The files could not be read: upload the private key and the certificate in DER, PEM or base64."
+msgstr ""
+
+msgid "The head unit refused the pairing. Enter the PIN it shows now and try again."
+msgstr ""
+
+msgid "The head unit shows CarBridge's waiting screen."
+msgstr ""
+
+msgid "The head unit then treats them as that kind of sound: its volume, how other sound is lowered, and audio focus."
+msgstr ""
+
+msgid "The head unit's window button switches between full screen and the window."
+msgstr ""
+
+msgid "The iPhone connects to CarPlay again when the density changes."
+msgstr ""
+
+msgid "The iPhone connects to CarPlay again when the size changes."
+msgstr ""
+
+msgid "The iPhone network interface has no IPv4 address."
+msgstr ""
+
+msgid "The kind of sound the iPhone's navigation prompts play as on the head unit."
+msgstr ""
+
+msgid "The latest %d lines CarBridge logged."
+msgstr ""
+
+msgid "The name the iPhone and the head unit show."
+msgstr ""
+
+msgid "The private key cannot be used: it must be a P-256 key in PKCS #8."
+msgstr ""
+
+msgid "The private key does not belong to the certificate."
+msgstr ""
+
+msgid "The settings of %s are applied in a moment."
+msgstr ""
+
+msgid "The views of %s are measured again: its window modes are calibrated the next time it shows CarPlay in them."
+msgstr ""
+
+msgid "Turning it on or off does not restart CarBridge."
+msgstr ""
+
+msgid "USB"
+msgstr ""
+
+msgid "Unavailable"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+msgid "Unpair"
+msgstr ""
+
+msgid "Unpair %s? It no longer connects to CarBridge. To use it again, forget CarBridge in the iPhone's Bluetooth settings, then pair it again."
+msgstr ""
+
+msgid "Unpair iPhone"
+msgstr ""
+
+msgid "Upload a certificate"
+msgstr ""
+
+msgid "Upload the certificate with MFi certificate below."
+msgstr ""
+
+msgid "Usable"
+msgstr ""
+
+msgid "Valid"
+msgstr ""
+
+msgid "Waiting for an iPhone"
+msgstr ""
+
+msgid "When the head unit offers it"
+msgstr ""
+
+msgid "When the head unit offers it: H.265 only for head units that declare it."
+msgstr ""
+
+msgid "Where CarPlay shows on the head unit's screen in each mode, in screen pixels, measured from touches."
+msgstr ""
+
+msgid "Width × height in pixels, for example 1280x720."
+msgstr ""
+
+msgid "Window modes take their density from the measured views; the first time one is used, tap the screen once to calibrate it."
+msgstr ""
+
+msgid "Window: landscape in mirror mode, portrait in simple mode."
+msgstr ""
+
+msgid "Without a chosen adapter: the Wi-Fi interface that joins the head unit's network, as it is named."
+msgstr ""
+
+msgid "[Default] %s"
+msgstr ""
+
+msgid "built in"
+msgstr ""
+
+msgid "iPhone access point"
+msgstr ""
+
+msgid "iPhone connected"
+msgstr ""
+
+msgid "iPhone network interface"
+msgstr ""
+
+msgid "iPhones can pair: %d s"
+msgstr ""
+
+msgid "in the router's Wi-Fi, which will leave it"
+msgstr ""
+
+msgid "unknown driver"
+msgstr ""
+
+msgid "• DPI: the density the head unit gives phones to lay out with"
+msgstr ""
+
+msgid "• RealDPI: the screen's real density, as the head unit reports it"
+msgstr ""

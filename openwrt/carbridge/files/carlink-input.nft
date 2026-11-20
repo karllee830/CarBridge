@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2026 CarBridge contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# The head unit connects back to CarBridge over its own Wi-Fi network: the control, media, sensor, certificate and
+# video channels, RTSP, and the input back channel. fw4 puts this at the start of its input chain (the
+# "carbridge_carlink" include in /etc/config/firewall).
+iifname "carlink0" tcp dport { 4321, 7236, 57219, 57229, 57239, 57249, 57259 } accept comment "CarBridge: Carlink"

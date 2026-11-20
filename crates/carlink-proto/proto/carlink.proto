@@ -1,0 +1,531 @@
+// Message definitions of the Carlink control protocol, as the head unit app (com.leapmotor.ucarhu 1.2.7) encodes
+// them. Field numbers and wire types match the head unit; message, field and enum value names are descriptive and
+// do not appear on the wire. Enum values are prefixed so that they are unique in the package.
+syntax = "proto3";
+
+package carlink;
+
+// --- enums ---
+
+// Android key codes are sent as they are (KEYCODE_BACK = 4, KEYCODE_ENTER = 66, ...); the values below are the
+// Carlink-specific ones.
+enum KeyCode {
+  KEY_CODE_UNDEFINED = 0;
+  KEY_CODE_MAIN = 8103;
+  KEY_CODE_TEL = 8104;
+  KEY_CODE_NAVI = 8105;
+  KEY_CODE_MEDIA = 8106;
+  KEY_CODE_VR_START = 8107;
+  KEY_CODE_VR_STOP = 8108;
+  KEY_CODE_NAVI_QUIT = 8113;
+  KEY_CODE_NEXT_FOCUS = 8114;
+  KEY_CODE_PRE_FOCUS = 8115;
+  KEY_CODE_IN_FOCUS = 8116;
+  KEY_CODE_OUT_FOCUS = 8117;
+  KEY_CODE_MEDIA_FAVOR = 8118;
+}
+
+enum DayNightMode {
+  DAY_NIGHT_UNKNOWN = 0;
+  DAY_NIGHT_DAY = 1;
+  DAY_NIGHT_NIGHT = 2;
+}
+
+enum MirrorState {
+  MIRROR_STOP = 0;            // the phone stops casting
+  MIRROR_DISCONNECT_LINK = 1; // the phone ends the session
+  MIRROR_GO_TO_DESKTOP = 2;   // the head unit should show its own home screen
+  MIRROR_BACK_TO_FOREGROUND = 3;
+}
+
+enum CallState {
+  CALL_UNKNOWN = 0;
+  CALL_IDLE = 1;
+  CALL_RINGING = 2;
+  CALL_OFFHOOK = 3;
+  CALL_INCOMING = 4;
+  CALL_DIALING = 5;
+  CALL_ALERTING = 6;
+  CALL_ACTIVE = 7;
+  CALL_HOLDING = 8;
+}
+
+enum ServerType {
+  SERVER_UNKNOWN = 0;
+  SERVER_SENSOR = 1;
+  SERVER_AUDIO = 2;
+  SERVER_UIBC = 3;
+}
+
+enum Result {
+  RESULT_UNKNOWN = 0;
+  RESULT_SUCCESS = 1;
+  RESULT_FAILURE = 2;
+}
+
+enum AudioType {
+  AUDIO_UNDEFINED = 0;
+  AUDIO_IP_CALL = 1;
+  AUDIO_MODEM_CALL = 2;
+  AUDIO_AI_ASSISTANT = 3;
+  AUDIO_RING = 4;
+  AUDIO_NOTIFICATION = 5;
+  AUDIO_TTS = 6;
+  AUDIO_SYSTEM = 7;
+  AUDIO_MICROPHONE = 9;
+  AUDIO_NUM = 10;
+  AUDIO_CAST_MUSIC = 16;
+}
+
+enum AudioPlayerState {
+  PLAYER_START = 0;
+  PLAYER_STOP = 1;
+  PLAYER_PAUSE = 2;
+  PLAYER_RESUME = 3;
+}
+
+// The sample rate in Hz, sent as the enum's number (44100, 48000, 16000, ...).
+enum SampleRate {
+  SAMPLE_RATE_UNKNOWN = 0;
+}
+
+enum ChannelMask {
+  CHANNEL_UNKNOWN = 0;
+  CHANNEL_MONO = 1;
+  CHANNEL_STEREO = 2;
+}
+
+enum EncodingFormat {
+  ENCODING_UNKNOWN = 0;
+  ENCODING_PCM_8BIT = 1;
+  ENCODING_PCM_16BIT = 2;
+  ENCODING_PCM_24BIT_PACKED = 3;
+  ENCODING_PCM_32BIT = 4;
+  ENCODING_PCM_FLOAT = 5;
+}
+
+enum OPType {
+  OP_ADD = 0;
+  OP_DELETE = 1;
+}
+
+enum AppCategory {
+  APP_MAP = 0;
+  APP_MEDIA = 1;
+  APP_VIDEO = 2;
+  APP_IM = 3;
+  APP_NEWS = 4;
+  APP_GAME = 5;
+  APP_SHOPPING = 6;
+  APP_TRAVEL = 7;
+  APP_FINANCIAL = 8;
+  APP_MEETING = 9;
+  APP_TOOL = 10;
+  APP_OFFICE = 11;
+  APP_EDUCATION = 12;
+  APP_HEALTHY = 13;
+  APP_SYSTEM = 14;
+  APP_LIFE = 15;
+  APP_SMART_SERVICE = 16;
+  APP_OTHER = 17;
+}
+
+enum AppInvokeCategory {
+  INVOKE_START = 0;
+  INVOKE_STOP = 1;
+  INVOKE_PAUSE = 2;
+  INVOKE_RESUME = 3;
+  INVOKE_UPDATE = 4;
+}
+
+enum AppListState {
+  APP_LIST_INSTALLED = 0;
+  APP_LIST_REMOVED = 1;
+  APP_LIST_UPDATED = 2;
+  APP_LIST_REORDERED = 3;
+}
+
+enum AppStateCategory {
+  APP_STATE_STARTED = 0;
+  APP_STATE_STOPPED = 1;
+  APP_STATE_PAUSED = 2;
+  APP_STATE_RESUMED = 3;
+  APP_STATE_DESTROYED = 4;
+}
+
+enum VRCmd {
+  VR_CMD_UNDEFINED = 0;
+  VR_CMD_MUSIC_PRE = 1;
+  VR_CMD_MUSIC_NEXT = 2;
+  VR_CMD_MUSIC_PAUSE = 3;
+  VR_CMD_MUSIC_PLAY = 4;
+  VR_CMD_CALL = 5;
+  VR_CMD_ENDCALL = 6;
+  VR_CMD_TEL = 7;
+  VR_CMD_MAP = 8;
+  VR_CMD_MUSIC = 9;
+  VR_CMD_VR_START = 10;
+  VR_CMD_VR_STOP = 11;
+  VR_CMD_NAVI_QUIT = 12;
+  VR_CMD_NAVI_HOME = 13;
+  VR_CMD_NAVI_COMPANY = 14;
+  VR_CMD_BACK_HOMEPAGE = 15;
+}
+
+enum CoordinateType {
+  COORDINATE_WGS84 = 0;
+  COORDINATE_GCJ02 = 1;
+  COORDINATE_BD09 = 2;
+}
+
+enum GearState {
+  GEAR_UNKNOWN = 0;
+  GEAR_PARK = 1;
+  GEAR_DRIVE = 2;
+  GEAR_REVERSE = 3;
+  GEAR_NEUTRAL = 4;
+}
+
+// --- auth channel (chapter 3) ---
+
+message AuthRequest {
+  int32 version = 1;
+  bytes authPk = 2;
+  bytes authPkHmac = 3;
+  bytes agreementPk = 4;
+  bytes agreementPkSig = 5;
+  bytes random = 6;
+  bytes id = 7;
+  string model = 8;
+  bool userConfirmed = 9;
+  optional int32 workModes = 10;
+  optional string productName = 11;
+}
+message AuthResponse {
+  int32 version = 1;
+  bytes authPk = 2;
+  bytes authPkHmac = 3;
+  bytes agreementPk = 4;
+  bytes agreementPkSig = 5;
+  bytes random = 6;
+  int32 result = 7;
+  optional int32 workModes = 8;
+  optional int32 dayOrNightMode = 9;
+  optional string screenInfo = 10;
+}
+message AuthConfirm {
+  bytes cipher = 1;
+}
+message CarCertificate {
+  bytes content = 1;
+}
+
+// --- control channel (chapter 4) ---
+
+message Heartbeat {
+  uint64 timestamp = 1;
+}
+message GetPortRequest {
+  ServerType type = 1;
+}
+message GetPortResponse {
+  Result result = 1;
+  int32 port = 2;
+}
+message NotifyCarToForeground {
+  uint64 timestamp = 1;
+}
+message NotifyCarToBackground {
+  uint64 timestamp = 1;
+}
+message NotifyMicrophoneState {
+  bool state = 1;
+  SampleRate sampleRate = 2;
+  ChannelMask channelMask = 3;
+  EncodingFormat encodingFormat = 4;
+}
+message NotifyMirrorState {
+  MirrorState mirrorState = 1;
+}
+message NotifyAudioPlayerState {
+  AudioType type = 1;
+  AudioPlayerState state = 2;
+  SampleRate sampleRate = 3;
+  ChannelMask channelMask = 4;
+  EncodingFormat encodingFormat = 5;
+  optional string mimeType = 6;
+}
+message NotifyPhoneState {
+  CallState cs = 1;
+  bool isScreenLocked = 2;
+  bool isWechatQqCall = 3;
+  bool isVoiceAssistantActive = 4;
+  optional bool isLowPower = 5;
+  optional bool isOverheat = 6;
+}
+message NotifyMusicInfo {
+  string artistName = 1;
+  string albumName = 2;
+  string coverArt = 3;
+  string lyrics = 4;
+  uint64 playingTimesMs = 5;
+  string title = 6;
+  string authorName = 7;
+  string writerName = 8;
+  string composerName = 9;
+  int32 playingCurrentTimeMs = 10;
+  bool isFavorite = 11;
+  bool isPlaying = 12;
+  optional bytes coverArtBitmap = 13;
+  optional int32 id = 14;
+}
+message NotifyNavigationInfo {
+  bool isNavigating = 1;
+  bytes directionIcon = 2;
+  string distance = 3;
+  string distanceUnit = 4;
+  string operation = 5;
+  string where = 6;
+  string title1 = 7;
+  string title2 = 8;
+  optional int32 id = 9;
+}
+message CustomKeyEvent {
+  int32 action = 1;
+  KeyCode keycode = 2;
+  int32 metaState = 3;
+  uint64 timestamp = 4;
+}
+message VRCmdToPhone {
+  VRCmd cmd = 1;
+  string source = 2;
+}
+message NotifyCallHungUp {
+  uint64 timestamp = 1;
+}
+message NotifySwitchDayOrNight {
+  DayNightMode mode = 1;
+}
+message AwakenVoiceAssistant {
+  bytes pcmData = 1;
+  SampleRate sampleRate = 2;
+  ChannelMask channelMask = 3;
+  EncodingFormat encodingFormat = 4;
+  uint64 timestamp = 5;
+  string source = 6;
+}
+message AudioPlayerControl {
+  AudioType audioType = 1;
+  int32 bufferingCount = 2;
+  int32 speedAdjustStep = 3;
+  optional int32 policyMode = 4;
+}
+message BluetoothMacInfo {
+  OPType opType = 1;
+  string bluetoothMac = 2;
+}
+message Disconnect {
+}
+message GetUCarConfigRequest {
+}
+message GetUCarConfigResponse {
+  bytes carBrMac = 1;
+  int32 screenWidth = 2;
+  int32 screenHeight = 3;
+  int32 dpi = 4;
+  int32 videoDisplayWidth = 5;
+  int32 videoDisplayHeight = 6;
+  int32 fps = 7;
+  bool isSupportP2P = 8;
+  bool isSupportSoftAP = 9;
+  bool isDataTransMode = 10;
+  int32 default5GChannel = 11;
+  bool isSupportCamera = 12;
+  bool isSupportMic = 13;
+  bool isSupportLowLatencyDecodingMode = 14;
+  bool isSupportVoiceWaken = 15;
+  bytes carCustomField = 16;
+  string sdkVersion = 17;
+  optional int32 workModes = 18;
+  optional bool isSupportPOINav = 19;
+  optional bool isSupportRotation = 20;
+  optional bool isSupportHomeKey = 21;
+  optional bool isSupportBackKey = 22;
+  optional bool isSupportHevc = 23;
+  optional int32 realDpi = 24;
+  optional string vin = 25;
+}
+message GetAppListRequest {
+}
+message AppGeneralInfoMessage {
+  int32 id = 1;
+  string label = 2;
+  AppCategory category = 3;
+}
+message GetAppListResponse {
+  int32 total = 1;
+  repeated AppGeneralInfoMessage appInfo = 2;
+}
+message GetAppDetailInfoRequest {
+  int32 total = 1;
+  repeated int32 id = 2;
+}
+message AppDetailInfoMessage {
+  int32 id = 1;
+  string label = 2;
+  AppCategory category = 3;
+  string packageName = 4;
+  bytes icon = 5;
+  optional bool isSupportLandscape = 6;
+  optional bool isSupportPortrait = 7;
+}
+message GetAppDetailInfoResponse {
+  int32 total = 1;
+  repeated AppDetailInfoMessage appDetailInfo = 2;
+}
+message InvokeApp {
+  int32 id = 1;
+  string packageName = 2;
+  AppInvokeCategory invokeState = 3;
+  int32 displayMode = 4;
+}
+message AppStateChanged {
+  int32 id = 1;
+  bool isNeedShow = 2;
+  int32 displayRotation = 3;
+  AppStateCategory state = 4;
+  uint64 timestamp = 5;
+  optional DisplayVisibleRegion visibleRegion = 6;
+  optional bool isAllowedSwitchMode = 7;
+}
+message DisplayVisibleRegion {
+  int32 mode = 1;
+  int32 originWidth = 2;
+  int32 originHeight = 3;
+  int32 left = 4;
+  int32 top = 5;
+  int32 right = 6;
+  int32 bottom = 7;
+}
+message AppListChanged {
+  repeated int32 id = 1;
+  AppListState state = 2;
+}
+message POIAddress {
+  optional string address = 1;
+  string name = 2;
+  optional POIDetailInfo poiInfo = 3;
+}
+message POIDetailInfo {
+  CoordinateType type = 1;
+  double latitude = 2;
+  double longitude = 3;
+  optional double altitude = 4;
+}
+message CallInfo {
+  CallState callState = 1;
+  string number = 2;
+  string name = 3;
+  bool isIPCall = 4;
+  bool isNeedShowFloatingWindow = 5;
+  int32 connectedTime = 6;
+  int32 inCallAppId = 7;
+}
+message PickUpCall {
+  uint64 timestamp = 1;
+}
+message AddNotification {
+  int32 id = 1;
+  bool isOngoing = 2;
+  string contentTitle = 3;
+  optional string contentText = 4;
+  optional int32 contentIntentId = 5;
+  optional bytes icon = 6;
+  optional string packageName = 7;
+  optional bytes contentBigIcon = 8;
+  optional string actionFirstTitle = 9;
+  optional string actionSecondTitle = 10;
+  optional string actionThirdTitle = 11;
+  optional int32 actionFirstPendingIntentId = 12;
+  optional int32 actionSecondPendingIntentId = 13;
+  optional int32 actionThirdPendingIntentId = 14;
+}
+message ClickNotification {
+  int32 id = 1;
+  optional int32 actionPendingIntentId = 2;
+}
+message DeleteNotification {
+  int32 total = 1;
+  repeated int32 ids = 2;
+}
+message TouchPadVibrator {
+  bool vibrator = 1;
+}
+message NotifyCarVrState {
+  bool isVrActive = 1;
+}
+message PauseCast {
+  uint64 timestamp = 1;
+}
+
+// --- sensor channel (chapter 4) ---
+
+message Gps {
+  double altitude = 1;
+  double latitude = 2;
+  double longitude = 3;
+  uint32 antennaState = 4;
+  uint32 pdop = 5;
+  uint32 speed = 6;
+  uint32 heading = 7;
+  uint32 satsUsed = 8;
+  uint32 satsVisible = 9;
+  uint64 timestamp = 10;
+  optional float exactPDop = 11;
+  optional float exactSpeed = 12;
+  optional float exactHeading = 13;
+  optional double locationAccuracy = 14;
+  optional double speedAccuracy = 15;
+  optional double headingAccuracy = 16;
+}
+message Lights {
+  bool lowBeamOn = 1;
+  bool highBeamOn = 2;
+  bool clearanceLampOn = 3;
+  bool backupLampOn = 4;
+  bool stopLampOn = 5;
+}
+message GyroScope {
+  int32 gyroType = 1;
+  double legyroX = 2;
+  double legyroY = 3;
+  double legyroZ = 4;
+  uint64 timestamp = 5;
+}
+message Acceleration {
+  double accX = 1;
+  double accY = 2;
+  double accZ = 3;
+  uint64 timestamp = 4;
+}
+message Oil {
+  uint32 maxFuel = 1;
+  uint32 currentFuel = 2;
+  optional bool isLowFuel = 3;
+}
+message GearInfo {
+  GearState gear = 1;
+  uint32 speed = 2;
+  optional float exactSpeed = 3;
+  optional uint64 timestamp = 4;
+}
+message LightSensorInfo {
+  double maxLux = 1;
+  double minLux = 2;
+  double currentLux = 3;
+}
+message Battery {
+  uint32 maxPower = 1;
+  uint32 currentPower = 2;
+  bool isLowPower = 3;
+}

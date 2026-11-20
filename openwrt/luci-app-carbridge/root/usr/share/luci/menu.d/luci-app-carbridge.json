@@ -1,0 +1,14 @@
+{
+	"admin/services/carbridge": {
+		"title": "CarBridge",
+		"order": 60,
+		"action": {
+			"type": "view",
+			"path": "carbridge"
+		},
+		"depends": {
+			"acl": [ "luci-app-carbridge" ],
+			"uci": { "carbridge": true }
+		}
+	}
+}

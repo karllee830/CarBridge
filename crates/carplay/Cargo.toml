@@ -1,0 +1,19 @@
+[package]
+name = "carbridge-carplay"
+description = "The CarPlay receiver, built on the carbridge-iap2 and carbridge-airplay crates."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+carbridge-iap2.workspace = true
+carbridge-airplay.workspace = true
+base64ct.workspace = true
+cms.workspace = true
+der.workspace = true
+p256.workspace = true
+x509-cert.workspace = true
+libc.workspace = true
+unsafe-libopus.workspace = true

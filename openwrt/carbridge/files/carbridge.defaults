@@ -1,0 +1,17 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: 2026 CarBridge contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# On first install: lets the head unit's connections in from the Carlink interface.
+
+uci -q get firewall.carbridge_carlink >/dev/null || {
+	uci -q batch <<-EOF
+		set firewall.carbridge_carlink=include
+		set firewall.carbridge_carlink.type='nftables'
+		set firewall.carbridge_carlink.path='/usr/share/carbridge/carlink-input.nft'
+		set firewall.carbridge_carlink.position='chain-pre'
+		set firewall.carbridge_carlink.chain='input'
+		commit firewall
+	EOF
+}
+exit 0

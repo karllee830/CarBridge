@@ -1,0 +1,18 @@
+[package]
+name = "carbridge-platform"
+description = "OpenWrt system interfaces: BlueZ, wpa_supplicant, uci and ubus."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+futures-util.workspace = true
+libc.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true, features = ["macros", "process", "fs", "time"] }
+zbus.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt"] }

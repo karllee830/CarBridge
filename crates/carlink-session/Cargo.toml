@@ -1,0 +1,18 @@
+[package]
+name = "carbridge-carlink-session"
+description = "Carlink session: authentication and the control, media, sensor, certificate and video channels."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+carbridge-carlink-proto.workspace = true
+tokio = { workspace = true, features = ["net", "io-util", "time", "sync", "macros", "rt"] }
+
+[dev-dependencies]
+p256 = { workspace = true, features = ["ecdh"] }
+prost.workspace = true
+rand_core.workspace = true
+tokio = { workspace = true, features = ["net", "io-util", "time", "sync", "macros", "rt", "test-util"] }

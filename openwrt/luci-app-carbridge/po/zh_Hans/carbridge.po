@@ -1,0 +1,673 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: luci-app-carbridge\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_Hans\n"
+
+msgid "%d fps"
+msgstr "%d 帧/秒"
+
+msgid "%s (about %s-inch screen)"
+msgstr "%s（约%s寸屏幕）"
+
+msgid "%s (not connected)"
+msgstr "%s（未连接）"
+
+msgid "%s for the picture %s"
+msgstr "%s，对应画面 %s"
+
+msgid "%s is connected now: the new head unit connects once it is not."
+msgstr "%s 正在连接中：等它断开后，CarBridge 才会去连接新车机。"
+
+msgid "%s to %s"
+msgstr "%s 至 %s"
+
+msgid "%s will be forgotten in a moment."
+msgstr "稍后将删除 %s。"
+
+msgid "%s will be unpaired in a moment."
+msgstr "稍后将取消与 %s 的配对。"
+
+msgid "%s, %d dpi"
+msgstr "%s，%d dpi"
+
+msgid "%s: %s"
+msgstr "%s：%s"
+
+msgid "10 MB at most: the oldest lines give way to new ones."
+msgstr "最多 10 MB，写满后最早的内容会被新内容覆盖。"
+
+msgid "30 fps"
+msgstr "30 帧/秒"
+
+msgid "60 fps"
+msgstr "60 帧/秒"
+
+msgid "A change applies from the next prompt."
+msgstr "修改后从下一条播报起生效。"
+
+msgid "A connected iPhone keeps its codec until it connects again."
+msgstr "已连接的 iPhone 保持当前编码，直到重新连接。"
+
+msgid "A density in dots per inch, from 72 to 640"
+msgstr "每英寸点数（DPI），范围 72 到 640"
+
+msgid "A few seconds later the iPhone asks to connect CarPlay: tap Connect."
+msgstr "稍等几秒，iPhone 会弹出 CarPlay 连接请求，轻点“连接”即可。"
+
+msgid "A file of the certificate cannot be read."
+msgstr "证书文件无法读取。"
+
+msgid "A file of the certificate is missing."
+msgstr "缺少证书文件。"
+
+msgid "A usable certificate is installed: confirm replacing it."
+msgstr "已装有可用的证书。如要替换，请先勾选确认。"
+
+msgid "AI assistant"
+msgstr "AI 助手"
+
+msgid "Advanced"
+msgstr "高级设置"
+
+msgid "Advanced settings"
+msgstr "高级设置"
+
+msgid "Advanced settings for %s"
+msgstr "%s 的高级设置"
+
+msgid "Also used with Automatic until a head unit is known."
+msgstr "选择自动时，在还不知道车机之前也使用这个尺寸。"
+
+msgid "Also writes the log, with statistics of the microphone, of sound dropped and of the link to the head unit, to %s on the router's storage."
+msgstr "把日志连同麦克风、丢弃的声音和车机连接的统计一起写入路由器存储中的 %s。"
+
+msgid "Always"
+msgstr "始终开启"
+
+msgid "Always, even when the head unit does not offer it"
+msgstr "始终开启，即使车机未声明支持"
+
+msgid "Always: H.265 even when undeclared, for head units whose decoder takes it."
+msgstr "始终开启：即使车机未声明也使用 H.265，仅适用于解码器实际支持的车机。"
+
+msgid "Automatic"
+msgstr "自动"
+
+msgid "Automatic (%d fps)"
+msgstr "自动（%d 帧/秒）"
+
+msgid "Automatic (%s)"
+msgstr "自动（%s）"
+
+msgid "Automatic: the area the head unit shows CarPlay in, as it reports it, kept for the next start."
+msgstr "自动：使用车机报告的投屏区域，并记住供下次启动使用。"
+
+msgid "Automatic: the frame rate the head unit asks for."
+msgstr "自动：使用车机要求的帧率。"
+
+msgid "Bluetooth %s"
+msgstr "蓝牙 %s"
+
+msgid "Bluetooth adapter"
+msgstr "蓝牙适配器"
+
+msgid "Bluetooth is not ready."
+msgstr "蓝牙尚未就绪。"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Cannot be read"
+msgstr "无法读取"
+
+msgid "CarBridge"
+msgstr "CarBridge"
+
+msgid "CarBridge checks that both files can be read and that the key belongs to the certificate before it installs them. The private key is never shown."
+msgstr "安装前，CarBridge 会检查两个文件能否读取、私钥与证书是否匹配。私钥内容不会显示。"
+
+msgid "CarBridge could not be restarted."
+msgstr "无法重启 CarBridge。"
+
+msgid "CarBridge is not running."
+msgstr "CarBridge 未运行。"
+
+msgid "CarBridge is restarting."
+msgstr "CarBridge 正在重启。"
+
+msgid "CarBridge leaves it out of the router's own Wi-Fi and names its interface carlink0."
+msgstr "CarBridge 会让路由器自己的 Wi-Fi 不再使用它，并把它的接口命名为 carlink0。"
+
+msgid "CarBridge tries again every few seconds."
+msgstr "CarBridge 每隔几秒会自动重试。"
+
+msgid "CarPlay"
+msgstr "CarPlay"
+
+msgid "CarPlay cannot run now, so iPhones cannot pair: %s"
+msgstr "CarPlay 目前无法使用，iPhone 暂时不能配对：%s"
+
+msgid "CarPlay picture size"
+msgstr "CarPlay 画面尺寸"
+
+msgid "CarPlay starts"
+msgstr "CarPlay 启动方式"
+
+msgid "CarPlay status"
+msgstr "CarPlay 状态"
+
+msgid "CarPlay's controls grow with the density: the higher, the larger."
+msgstr "CarPlay 控件的大小随密度变化，密度越高控件越大。"
+
+msgid "Casting to the head unit"
+msgstr "正在投屏到车机"
+
+msgid "Certificate"
+msgstr "证书"
+
+msgid "Checking the certificate…"
+msgstr "正在检查证书…"
+
+msgid "Choose Pair a head unit below and enter it."
+msgstr "请点下方的“配对车机”并输入验证码。"
+
+msgid "Choose Start pairing an iPhone below."
+msgstr "点下方的“开始配对 iPhone”。"
+
+msgid "Choose both the private key and the certificate."
+msgstr "请同时选择私钥和证书。"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Connect"
+msgstr "开始连接"
+
+msgid "Connected"
+msgstr "已连接"
+
+msgid "Connected to the head unit"
+msgstr "已连接车机"
+
+msgid "Connecting to the head unit"
+msgstr "正在连接车机"
+
+msgid "Connecting to the head unit…"
+msgstr "正在连接车机…"
+
+msgid "Connection failed, trying again"
+msgstr "连接失败，正在重试"
+
+msgid "Custom"
+msgstr "自定义"
+
+msgid "DPI"
+msgstr "DPI"
+
+msgid "DPI %d"
+msgstr "DPI %d"
+
+msgid "Defaults for head units"
+msgstr "车机默认设置"
+
+msgid "Detailed log"
+msgstr "详细日志"
+
+msgid "Done"
+msgstr "完成"
+
+msgid "Download"
+msgstr "下载"
+
+msgid "Download detailed log"
+msgstr "下载详细日志"
+
+msgid "Enabled"
+msgstr "启用"
+
+msgid "Enter the PIN below and choose Connect."
+msgstr "在下方输入验证码，点“开始连接”。"
+
+msgid "Enter the PIN the head unit shows"
+msgstr "请输入车机显示的验证码"
+
+msgid "Even width x height in pixels, from 320x240 to 3840x2160, for example 1280x720"
+msgstr "宽 x 高，单位为像素，须为偶数，范围 320x240 到 3840x2160，例如 1280x720"
+
+msgid "Fixed"
+msgstr "固定"
+
+msgid "Fixed picture size"
+msgstr "固定画面尺寸"
+
+msgid "For head units without settings of their own. A head unit's own settings are under Advanced in the list of head units."
+msgstr "用于没有单独设置的车机。单台车机的设置在车机列表中该车机的“高级设置”里。"
+
+msgid "Forget"
+msgstr "删除"
+
+msgid "Forget %s? CarBridge no longer connects to it until it is paired again with the PIN it shows."
+msgstr "确定删除 %s 吗？删除后 CarBridge 不再连接它，直到用它显示的验证码重新配对。"
+
+msgid "Forget head unit"
+msgstr "删除车机"
+
+msgid "Frame rate"
+msgstr "帧率"
+
+msgid "Full screen"
+msgstr "全屏"
+
+msgid "Full screen resolution"
+msgstr "全屏分辨率"
+
+msgid "H.265 to the head unit"
+msgstr "H.265 投屏到车机"
+
+msgid "Head unit Wi-Fi adapter"
+msgstr "连接车机的 Wi-Fi 网卡"
+
+msgid "Head unit Wi-Fi interface"
+msgstr "车机 Wi-Fi 接口"
+
+msgid "Head units"
+msgstr "车机列表"
+
+msgid "Hide advanced settings"
+msgstr "隐藏高级设置"
+
+msgid "Hide log"
+msgstr "隐藏日志"
+
+msgid "How the cast shows when the head unit connects."
+msgstr "车机连接时投屏的显示方式。"
+
+msgid "ID %s"
+msgstr "ID %s"
+
+msgid "In the window"
+msgstr "窗口"
+
+msgid "Install"
+msgstr "安装"
+
+msgid "Installed. CarPlay starts in a moment."
+msgstr "已安装，CarPlay 稍后启动。"
+
+msgid "Installed. CarPlay uses it after Restart CarPlay."
+msgstr "已安装。点“重启 CarPlay”后生效。"
+
+msgid "Installing failed: %s"
+msgstr "安装失败：%s"
+
+msgid "Issuer"
+msgstr "颁发者"
+
+msgid "It is known by its MAC address, on whichever USB port."
+msgstr "按 MAC 地址识别，插在哪个 USB 口都可以。"
+
+msgid "Joining the head unit's Wi-Fi failed. Trying again…"
+msgstr "加入车机的 Wi-Fi 失败，正在重试…"
+
+msgid "Keep the head unit on its PIN screen until it is paired."
+msgstr "配对完成前，请让车机停留在显示验证码的界面。"
+
+msgid "Landscape window"
+msgstr "横屏窗口"
+
+msgid "Last connected"
+msgstr "上次连接"
+
+msgid "Loading…"
+msgstr "正在加载…"
+
+msgid "Log"
+msgstr "日志"
+
+msgid "Looking for the head unit"
+msgstr "正在寻找车机"
+
+msgid "Looking for the head unit…"
+msgstr "正在寻找车机…"
+
+msgid "MFi certificate"
+msgstr "MFi 证书"
+
+msgid "Measured views"
+msgstr "测得的显示区域"
+
+msgid "Media"
+msgstr "媒体"
+
+msgid "Missing"
+msgstr "缺失"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Navigation sound channel"
+msgstr "导航声音通道"
+
+msgid "Navigation speech"
+msgstr "导航播报"
+
+msgid "No head unit found yet. Keep the head unit on its PIN screen, close to CarBridge."
+msgstr "还没有找到车机。请让车机停留在显示验证码的界面，并让 CarBridge 靠近车机。"
+
+msgid "No head unit paired yet."
+msgstr "还没有配对过车机。"
+
+msgid "No iPhone paired yet."
+msgstr "还没有配对过 iPhone。"
+
+msgid "No log yet."
+msgstr "暂无日志。"
+
+msgid "No usable MFi certificate."
+msgstr "没有可用的 MFi 证书。"
+
+msgid "Not chosen"
+msgstr "未选择"
+
+msgid "Not measured yet"
+msgstr "尚未测量"
+
+msgid "Not running"
+msgstr "未运行"
+
+msgid "Off"
+msgstr "关闭"
+
+msgid "Off: always H.264."
+msgstr "关闭：始终使用 H.264。"
+
+msgid "Off: the head unit shows CarBridge's waiting screen only."
+msgstr "关闭时，车机只显示 CarBridge 的等待画面。"
+
+msgid "On the head unit, open Carlink: it shows a six-digit PIN."
+msgstr "在车机上打开 Carlink，屏幕上会显示 6 位验证码。"
+
+msgid "On the iPhone, open Settings > Bluetooth, tap %s under Other Devices and pair."
+msgstr "在 iPhone 上打开“设置”>“蓝牙”，在“其他设备”中轻点“%s”并配对。"
+
+msgid "Once its touches have measured the full screen view, CarPlay is drawn at that size from the next connection, pixel for pixel."
+msgstr "触摸测到全屏的实际显示区域后，从下次连接起按这个尺寸绘制，与屏幕像素 1:1 对应。"
+
+msgid "Other sizes are drawn as they are."
+msgstr "其他尺寸按所选的大小绘制。"
+
+msgid "Pair a head unit"
+msgstr "配对车机"
+
+msgid "Pair an iPhone"
+msgstr "配对 iPhone"
+
+msgid "Paired %s"
+msgstr "配对于 %s"
+
+msgid "Paired iPhones"
+msgstr "已配对的 iPhone"
+
+msgid "Paired with %s."
+msgstr "已与 %s 配对。"
+
+msgid "Paired with %s. It connects in a moment."
+msgstr "已与 %s 配对，稍后会自动连接。"
+
+msgid "Pairing after start"
+msgstr "启动后开放配对"
+
+msgid "Pairing could not be opened: %s"
+msgstr "无法开放配对：%s"
+
+msgid "Phone call"
+msgstr "电话"
+
+msgid "Portrait window"
+msgstr "竖屏窗口"
+
+msgid "Present"
+msgstr "已有"
+
+msgid "Private key"
+msgstr "私钥"
+
+msgid "RealDPI"
+msgstr "RealDPI"
+
+msgid "RealDPI %d"
+msgstr "RealDPI %d"
+
+msgid "RealDPI (not reported: DPI %d is used)"
+msgstr "RealDPI（车机未报告，使用 DPI %d）"
+
+msgid "Recalibrate"
+msgstr "重新校准"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "Replace"
+msgstr "替换"
+
+msgid "Replace the certificate"
+msgstr "替换证书"
+
+msgid "Replace the certificate CarPlay uses now"
+msgstr "替换 CarPlay 当前使用的证书"
+
+msgid "Restart"
+msgstr "重启"
+
+msgid "Restart CarBridge now? CarPlay and the picture on the head unit drop for a few seconds, then connect again."
+msgstr "现在重启 CarBridge 吗？CarPlay 和车机上的画面会中断几秒钟，随后自动重新连接。"
+
+msgid "Restart CarPlay"
+msgstr "重启 CarPlay"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Seconds iPhones can pair after CarBridge starts; 0 for only with the button."
+msgstr "CarBridge 启动后允许 iPhone 配对的秒数；0 表示只能用按钮开放。"
+
+msgid "Serial number"
+msgstr "序列号"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Show advanced settings"
+msgstr "显示高级设置"
+
+msgid "Show log"
+msgstr "显示日志"
+
+msgid "Showing CarPlay"
+msgstr "正在显示 CarPlay"
+
+msgid "Start pairing an iPhone"
+msgstr "开始配对 iPhone"
+
+msgid "Starting"
+msgstr "正在启动"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Stopped"
+msgstr "已停止"
+
+msgid "Subject"
+msgstr "主体"
+
+msgid "The Bluetooth connection to the head unit failed. Trying again…"
+msgstr "通过蓝牙连接车机失败，正在重试…"
+
+msgid "The CarPlay receiver did not start."
+msgstr "CarPlay 服务未能启动。"
+
+msgid "The PIN is the six digits the head unit shows."
+msgstr "验证码是车机上显示的 6 位数字。"
+
+msgid "The PIN is wrong or has expired: the head unit shows a new one from time to time. Enter the one it shows now."
+msgstr "验证码不正确或已过期：车机每隔一段时间会换一个新的验证码，请输入车机现在显示的验证码。"
+
+msgid "The Wi-Fi adapter that joins the head unit's network: a second one, besides the iPhone's access point."
+msgstr "用来加入车机网络的 Wi-Fi 网卡，是给 iPhone 开热点之外的第二块网卡。"
+
+msgid "The access point the iPhone joins for CarPlay."
+msgstr "iPhone 为 CarPlay 加入的接入点。"
+
+msgid "The certificate cannot be used: it must be PKCS #7 holding one P-256 certificate."
+msgstr "证书无法使用：须为包含一张 P-256 证书的 PKCS #7 文件。"
+
+msgid "The connection to the head unit failed. Trying again…"
+msgstr "连接车机失败，正在重试…"
+
+msgid "The detailed log cannot be downloaded: %s"
+msgstr "无法下载详细日志：%s"
+
+msgid "The files are too large for an MFi certificate."
+msgstr "文件太大，不像是 MFi 证书。"
+
+msgid "The files cannot be sent: %s"
+msgstr "文件无法上传：%s"
+
+msgid "The files could not be read: upload the private key and the certificate in DER, PEM or base64."
+msgstr "文件无法读取。请上传 DER、PEM 或 base64 格式的私钥和证书。"
+
+msgid "The head unit refused the pairing. Enter the PIN it shows now and try again."
+msgstr "车机拒绝了配对。请输入车机现在显示的验证码，再试一次。"
+
+msgid "The head unit shows CarBridge's waiting screen."
+msgstr "车机只显示 CarBridge 的等待画面。"
+
+msgid "The head unit then treats them as that kind of sound: its volume, how other sound is lowered, and audio focus."
+msgstr "车机会按这类声音处理导航播报：音量、对其他声音的压低，以及音频焦点。"
+
+msgid "The head unit's window button switches between full screen and the window."
+msgstr "车机上的窗口按钮可在全屏和窗口之间切换。"
+
+msgid "The iPhone connects to CarPlay again when the density changes."
+msgstr "密度变化时，iPhone 会重新连接 CarPlay。"
+
+msgid "The iPhone connects to CarPlay again when the size changes."
+msgstr "尺寸变化时，iPhone 会重新连接 CarPlay。"
+
+msgid "The iPhone network interface has no IPv4 address."
+msgstr "iPhone 所在的网络接口没有 IPv4 地址。"
+
+msgid "The kind of sound the iPhone's navigation prompts play as on the head unit."
+msgstr "iPhone 的导航播报在车机上按哪种声音播放。"
+
+msgid "The latest %d lines CarBridge logged."
+msgstr "CarBridge 最近的 %d 行日志。"
+
+msgid "The name the iPhone and the head unit show."
+msgstr "iPhone 和车机上显示的名称。"
+
+msgid "The private key cannot be used: it must be a P-256 key in PKCS #8."
+msgstr "私钥无法使用：须为 PKCS #8 格式的 P-256 私钥。"
+
+msgid "The private key does not belong to the certificate."
+msgstr "私钥与证书不匹配。"
+
+msgid "The settings of %s are applied in a moment."
+msgstr "%s 的设置稍后生效。"
+
+msgid "The views of %s are measured again: its window modes are calibrated the next time it shows CarPlay in them."
+msgstr "将重新测量 %s 的显示区域：下次在窗口模式中显示 CarPlay 时会重新校准。"
+
+msgid "Turning it on or off does not restart CarBridge."
+msgstr "开启或关闭都不会重启 CarBridge。"
+
+msgid "USB"
+msgstr "USB"
+
+msgid "Unavailable"
+msgstr "不可用"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Unpair"
+msgstr "取消配对"
+
+msgid "Unpair %s? It no longer connects to CarBridge. To use it again, forget CarBridge in the iPhone's Bluetooth settings, then pair it again."
+msgstr "确定取消与 %s 的配对吗？取消后它不会再连接 CarBridge。如果以后还要用，请先在 iPhone 的蓝牙设置里忽略 CarBridge，再重新配对。"
+
+msgid "Unpair iPhone"
+msgstr "取消配对 iPhone"
+
+msgid "Upload a certificate"
+msgstr "上传证书"
+
+msgid "Upload the certificate with MFi certificate below."
+msgstr "请点下方的“MFi 证书”上传证书。"
+
+msgid "Usable"
+msgstr "可用"
+
+msgid "Valid"
+msgstr "有效期"
+
+msgid "Waiting for an iPhone"
+msgstr "等待 iPhone 连接"
+
+msgid "When the head unit offers it"
+msgstr "车机声明支持时"
+
+msgid "When the head unit offers it: H.265 only for head units that declare it."
+msgstr "车机声明支持时：仅对声明支持 H.265 的车机使用。"
+
+msgid "Where CarPlay shows on the head unit's screen in each mode, in screen pixels, measured from touches."
+msgstr "各模式下 CarPlay 在车机屏幕上的显示区域（屏幕像素），从触摸中测得。"
+
+msgid "Width × height in pixels, for example 1280x720."
+msgstr "宽×高，单位为像素，例如 1280x720。"
+
+msgid "Window modes take their density from the measured views; the first time one is used, tap the screen once to calibrate it."
+msgstr "窗口模式的密度按测得的显示区域换算；首次使用时轻触一次屏幕即可校准。"
+
+msgid "Window: landscape in mirror mode, portrait in simple mode."
+msgstr "窗口：镜像模式为横屏，极简模式为竖屏。"
+
+msgid "Without a chosen adapter: the Wi-Fi interface that joins the head unit's network, as it is named."
+msgstr "未选择网卡时使用：加入车机网络的 Wi-Fi 接口的名称。"
+
+msgid "[Default] %s"
+msgstr "【默认】%s"
+
+msgid "built in"
+msgstr "内置"
+
+msgid "iPhone access point"
+msgstr "iPhone 接入点"
+
+msgid "iPhone connected"
+msgstr "iPhone 已连接"
+
+msgid "iPhone network interface"
+msgstr "iPhone 网络接口"
+
+msgid "iPhones can pair: %d s"
+msgstr "可被 iPhone 配对 %d 秒"
+
+msgid "in the router's Wi-Fi, which will leave it"
+msgstr "路由器自己的 Wi-Fi 正在用它，选择后会停用"
+
+msgid "unknown driver"
+msgstr "驱动未知"
+
+msgid "• DPI: the density the head unit gives phones to lay out with"
+msgstr "• DPI：车机给手机排版用的密度"
+
+msgid "• RealDPI: the screen's real density, as the head unit reports it"
+msgstr "• RealDPI：车机报告的屏幕实际密度"

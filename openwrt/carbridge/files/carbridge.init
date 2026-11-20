@@ -1,0 +1,105 @@
+#!/bin/sh /etc/rc.common
+# SPDX-FileCopyrightText: 2026 CarBridge contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# CarBridge: connects to Carlink head units and casts CarPlay to them. Its settings are in /etc/config/carbridge; its
+# state is in /tmp/run/carbridge/status.json, where the web interface also leaves the head unit's PIN (pin),
+# requests to let iPhones pair (pair), the head units to forget (forget), head units' own settings (settings) and
+# MFi identities to install (mfi-install, with the files uploaded next to it).
+# Its log is in /tmp/run/carbridge/carbridge.log as well as the system log. While detailed_log is on, it also writes a
+# detailed log to detail_log_dir (/opt/carbridge/log), 10 MiB at most; it follows the switch, the file detail-log in
+# the run directory, without a restart.
+
+START=95
+STOP=05
+USE_PROCD=1
+
+PROG=/usr/bin/carbridge
+RUN=/tmp/run/carbridge
+
+start_service() {
+	local enabled name adapter carlink_mac carlink_iface ap_iface lan_iface carplay carplay_picture carplay_size carplay_fps
+	local carplay_start nav_audio
+	local hevc pairing_window detail_log detail_log_dir
+
+	config_load carbridge
+	config_get_bool enabled main enabled 1
+	[ "$enabled" = 1 ] || return 0
+	config_get name main name CarBridge
+	config_get adapter main adapter hci0
+	config_get carlink_mac main carlink_mac
+	config_get carlink_iface main carlink_iface carlink0
+	config_get ap_iface main ap_iface wlan0
+	config_get lan_iface main lan_iface br-lan
+	config_get_bool carplay main carplay 1
+	config_get carplay_picture main carplay_picture auto
+	config_get carplay_size main carplay_size 1280x720
+	config_get carplay_fps main carplay_fps auto
+	config_get carplay_start main carplay_start fullscreen
+	config_get nav_audio main nav_audio tts
+	config_get hevc main hevc auto
+	config_get pairing_window main pairing_window 0
+	config_get_bool detail_log main detail_log 0
+	config_get detail_log_dir main detail_log_dir /opt/carbridge/log
+
+	# The adapter chosen by its MAC address is left out of OpenWrt's Wi-Fi and named carlink0 when it is there, here
+	# and by hotplug when it appears later. Without a choice, carlink_iface names the interface as it is.
+	if [ -n "$carlink_mac" ]; then
+		/usr/libexec/carbridge-carlink setup
+		carlink_iface=carlink0
+	fi
+
+	mkdir -p "$RUN" /etc/carbridge
+	chmod 700 "$RUN" /etc/carbridge
+	# Read by the running carbridge every few seconds: turning detailed logging on or off needs no restart, as this
+	# file is not part of the instance procd compares on a reload.
+	if [ "$detail_log" = 1 ]; then
+		: > "$RUN/detail-log"
+	else
+		rm -f "$RUN/detail-log"
+	fi
+
+	procd_open_instance
+	procd_set_param command "$PROG" \
+		--name "$name" \
+		--adapter "$adapter" \
+		--iface "$carlink_iface" \
+		--ap-iface "$ap_iface" \
+		--lan-iface "$lan_iface" \
+		--carplay-picture "$carplay_picture" \
+		--carplay-size "$carplay_size" \
+		--carplay-fps "$carplay_fps" \
+		--carplay-start "$carplay_start" \
+		--nav-audio "$nav_audio" \
+		--hevc "$hevc" \
+		--pairing-window "$pairing_window" \
+		--state-dir /etc/carbridge/carlink \
+		--carplay-state-dir /etc/carbridge/airplay \
+		--mfi-dir /etc/carbridge/mfi \
+		--mfi-request-file "$RUN/mfi-install" \
+		--pin-file "$RUN/pin" \
+		--pair-file "$RUN/pair" \
+		--forget-file "$RUN/forget" \
+		--forget-iphone-file "$RUN/forget-iphone" \
+		--settings-file "$RUN/settings" \
+		--status-file "$RUN/status.json" \
+		--log-file "$RUN/carbridge.log" \
+		--detail-log-dir "$detail_log_dir" \
+		--detail-switch-file "$RUN/detail-log"
+	[ "$carplay" = 1 ] || procd_append_param command --no-carplay
+	# The log's times are local only with the zone in the environment.
+	[ -s /etc/TZ ] && procd_set_param env TZ="$(cat /etc/TZ)"
+	# Restarted 5 s after it exits, also when its watchdog ends it after its main loop stalled for a minute; procd
+	# gives up after five exits that each come within an hour of their start.
+	procd_set_param respawn 3600 5 5
+	# Ahead of other programs, for the picture and the sound to keep their pace.
+	procd_set_param nice -10
+	procd_set_param stdout 1
+	procd_set_param stderr 1
+	procd_set_param term_timeout 10
+	procd_close_instance
+}
+
+service_triggers() {
+	procd_add_reload_trigger carbridge
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: 2026 CarBridge contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# A Wi-Fi adapter appears: when it is the one CarBridge joins the head unit with, it is left out of OpenWrt's Wi-Fi
+# before 10-wifi-detect adds a radio for it.
+
+[ "$ACTION" = add ] || exit 0
+exec /usr/libexec/carbridge-carlink setup

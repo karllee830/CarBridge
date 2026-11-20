@@ -1,0 +1,23 @@
+[package]
+name = "carbridge-carlink-proto"
+description = "Carlink wire format: message header, encrypted records, authentication and protobuf messages."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+aes-gcm.workspace = true
+base64ct.workspace = true
+hkdf.workspace = true
+hmac.workspace = true
+p256 = { workspace = true, features = ["ecdh"] }
+prost.workspace = true
+rand_core.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+
+[build-dependencies]
+prost-build.workspace = true
+protox.workspace = true

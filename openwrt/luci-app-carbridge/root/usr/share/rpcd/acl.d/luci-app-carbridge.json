@@ -1,0 +1,35 @@
+{
+	"luci-app-carbridge": {
+		"description": "Grant access to CarBridge",
+		"read": {
+			"file": {
+				"/tmp/run/carbridge/status.json": [ "read" ],
+				"/tmp/run/carbridge/carbridge.log": [ "read" ],
+				"/tmp/run/carbridge/carbridge.log.1": [ "read" ],
+				"/usr/libexec/carbridge-detail-log": [ "exec" ],
+				"/usr/libexec/carbridge-carlink": [ "exec" ]
+			},
+			"ubus": {
+				"file": [ "read" ]
+			},
+			"uci": [ "carbridge" ]
+		},
+		"write": {
+			"file": {
+				"/tmp/run/carbridge/pin": [ "write" ],
+				"/tmp/run/carbridge/pair": [ "write" ],
+				"/tmp/run/carbridge/forget": [ "write" ],
+				"/tmp/run/carbridge/forget-iphone": [ "write" ],
+				"/tmp/run/carbridge/settings": [ "write" ],
+				"/tmp/run/carbridge/mfi-identity.pk8": [ "write" ],
+				"/tmp/run/carbridge/mfi-certificate.p7b": [ "write" ],
+				"/tmp/run/carbridge/mfi-install": [ "write" ]
+			},
+			"ubus": {
+				"file": [ "write" ],
+				"luci": [ "setInitAction" ]
+			},
+			"uci": [ "carbridge" ]
+		}
+	}
+}

@@ -1,0 +1,21 @@
+[package]
+name = "carbridge-carlink-ble"
+description = "Carlink discovery and BLE handoff: the head unit's advertisement and the GATT exchange."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+crc32fast.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tokio = { workspace = true, features = ["time"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+bluer = { workspace = true, features = ["l2cap"] }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt", "sync"] }

@@ -1,0 +1,16 @@
+#!/bin/sh
+# SPDX-FileCopyrightText: 2026 CarBridge contributors
+# SPDX-License-Identifier: AGPL-3.0-only
+#
+# Writes CarBridge's detailed log to standard output, its files joined from the oldest to the newest, for the web
+# interface to download. The directory is the one in /etc/config/carbridge.
+
+dir=$(uci -q get carbridge.main.detail_log_dir)
+dir=${dir:-/opt/carbridge/log}
+[ -d "$dir" ] || exit 0
+cd "$dir" || exit 1
+for n in $(ls | sed -n 's/^carbridge\.log\.\([0-9][0-9]*\)$/\1/p' | sort -rn); do
+	cat "carbridge.log.$n"
+done
+[ -f carbridge.log ] && cat carbridge.log
+exit 0

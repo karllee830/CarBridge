@@ -1,0 +1,14 @@
+[package]
+name = "carbridge-iap2"
+description = "iAP2 for wireless CarPlay: link layer, control sessions and accessory messages. A Rust rewrite of DiPlay's and xcertplay's iAP2 code."
+version.workspace = true
+edition.workspace = true
+license = "GPL-3.0-only"
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+cms.workspace = true
+der.workspace = true
+p256.workspace = true
+x509-cert.workspace = true
